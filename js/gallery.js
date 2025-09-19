@@ -67,9 +67,17 @@ const images = [
 const galleryListEl = document.querySelector(".gallery");
 console.log("galleryListEl: ", galleryListEl);
 
-const createImgEl = (img) => `
+galleryListEl.insertAdjacentHTML(
+  "afterbegin",
+  images.map((img) => createImgEl(img)).join("")
+);
+
+galleryListEl.addEventListener("click", showModalWindow);
+
+function createImgEl(img) {
+  return `
 <li class="gallery-item">
-  <a class="gallery-link" href="${img.original}">
+  <a class="gallery-link" href="#">
     <img
       class="gallery-image"
       src="${img.preview}"
@@ -79,7 +87,14 @@ const createImgEl = (img) => `
   </a>
 </li>
 `;
-galleryListEl.insertAdjacentHTML(
-  "afterbegin",
-  images.map((img) => createImgEl(img)).join("")
-);
+}
+
+function showModalWindow(e) {
+  if (e.target === e.currentTarget) {
+    return;
+  }
+  const instance = basicLightbox.create(`
+    <img src="${e.target.dataset.source}" width="800" height="600">
+`);
+  instance.show();
+}
