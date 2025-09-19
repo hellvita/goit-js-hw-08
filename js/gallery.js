@@ -65,7 +65,6 @@ const images = [
 ];
 
 const galleryListEl = document.querySelector(".gallery");
-console.log("galleryListEl: ", galleryListEl);
 
 galleryListEl.insertAdjacentHTML(
   "afterbegin",
